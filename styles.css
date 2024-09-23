@@ -1,0 +1,67 @@
+/* تنسيق الصفحة الرئيسية */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: bisque;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #430808;
+    color: #f8e5e5;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+section.game-category {
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    color: #ffff;
+    background-color: #430808;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(255, 0, 0);
+}
+
+h2 {
+    color: #ffff;
+    text-align: center;
+}
+
+.game {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.game img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.game h3 {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.game p {
+    max-width: 400px;
+}
+
+footer {
+    background-color: #430808;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
