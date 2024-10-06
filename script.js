@@ -53,3 +53,28 @@ database.ref('/test').set({
 }).catch((error) => {
   console.error('Error writing data:', error);
 });
+
+// معالجة إرسال النموذج
+const gameForm = document.getElementById('game-form');
+gameForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // منع الإرسال الافتراضي للنموذج
+
+    // الحصول على قيم المدخلات
+    const gameName = document.getElementById('game-name').value;
+    const gameImage = document.getElementById('game-image').value;
+    const gameDescription = document.getElementById('game-description').value;
+
+    // إضافة اللعبة إلى Firebase
+    const database = firebase.database();
+    database.ref('/games').push({ // يمكنك تغيير '/games' إلى المكان الذي تريده
+        name: gameName,
+        image: gameImage,
+        description: gameDescription
+    }).then(() => {
+        console.log('Game added successfully');
+        // يمكنك إضافة كود لتفريغ النموذج بعد الإضافة
+        gameForm.reset();
+    }).catch((error) => {
+        console.error('Error adding game:', error);
+    });
+});
