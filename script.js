@@ -52,3 +52,15 @@ function displayGame(type, name, image, description) {
   `;
   gameList.appendChild(gameItem);
 }
+
+// دالة لعرض اللعبة المضافة
+function displayGame(type, name, image, description) {
+  const gameList = document.getElementById(type === 'classic' ? 'classic-games' : 'new-games');
+  const gameItem = document.createElement('div');
+  gameItem.innerHTML = `
+    <h3>${name}</h3>
+    <img src="${image}" alt="${name}" />
+    <p>${description}</p>
+  `;
+  gameList.appendChild(gameItem);
+}
