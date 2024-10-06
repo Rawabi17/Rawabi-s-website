@@ -1,50 +1,54 @@
-const gameForm = document.getElementById("game-form");
-const gameListClassic = document.getElementById("game-list-classic");
-const gameListNew = document.getElementById("game-list-new");
+// إعدادات Firebase
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-gameForm.addEventListener("submit", function(event) {
-  event.preventDefault();
+// تهيئة Firebase
+firebase.initializeApp(firebaseConfig);
 
-  const name = document.getElementById("game-name").value;
-  const image = document.getElementById("game-image").value;
-  const description = document.getElementById("game-description").value;
-  const type = document.getElementById("game-type").value;
+// عند تقديم النموذج
+document.getElementById('game-form').addEventListener('submit', function(event) {
+  event.preventDefault(); // منع إعادة تحميل الصفحة
 
-  const newGame = {
-    name: name,
-    image: image,
-    description: description,
-    type: type
-  };
+  const gameName = document.getElementById('game-name').value;
+  const gameImage = document.getElementById('game-image').value;
+  const gameDescription = document.getElementById('game-description').value;
+  const gameType = document.getElementById('game-type').value;
 
   // إضافة اللعبة إلى Firebase
-  database.ref('/games').push(newGame)
-    .then(() => {
-      // تحديث القائمة بعد الإضافة
-      addGameToList(newGame);
-      gameForm.reset(); // إعادة تعيين النموذج
-    })
-    .catch(error => {
-      console.error("Error adding game: ", error);
-    });
+  const newGameRef = firebase.database().ref('games/' + gameType).push(); // استخدام نوع اللعبة كجزء من المسار
+  newGameRef.set({
+    name: gameName,
+    image: gameImage,
+    description: gameDescription
+  }).then(() => {
+    console.log('Game added successfully');
+    alert('تم إضافة اللعبة بنجاح!');
+
+    // يمكنك هنا استدعاء دالة لعرض اللعبة المضافة على الصفحة
+    displayGame(gameType, gameName, gameImage, gameDescription);
+  }).catch((error) => {
+    console.error('Error adding game:', error);
+  });
+
+  // إعادة تعيين النموذج بعد الإضافة
+  this.reset();
 });
 
-// دالة لإضافة اللعبة إلى القائمة
-function addGameToList(game) {
-  const gameItem = document.createElement("div");
+// دالة لعرض اللعبة المضافة
+function displayGame(type, name, image, description) {
+  const gameList = document.getElementById(type === 'classic' ? 'classic-games' : 'new-games');
+  const gameItem = document.createElement('div');
   gameItem.innerHTML = `
-    <h3>${game.name}</h3>
-    <img src="${game.image}" alt="${game.name}" />
-    <p>${game.description}</p>
-    <button class="delete-button">حذف</button>
+    <h3>${name}</h3>
+    <img src="${image}" alt="${name}" />
+    <p>${description}</p>
   `;
-
-  // تحديد القائمة بناءً على نوع اللعبة
-  const gameList = game.type === 'classic' ? gameListClassic : gameListNew;
   gameList.appendChild(gameItem);
-
-  // إضافة وظيفة حذف اللعبة
-  gameItem.querySelector(".delete-button").addEventListener("click", function() {
-    gameList.removeChild(gameItem);
-  });
 }
