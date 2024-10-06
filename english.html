@@ -61,11 +61,17 @@
         </div>
     </section>
 <form id="game-form">
-  <input type="text" id="game-name" placeholder="game name" required />
-  <input type="text" id="game-image" placeholder="photo link" required />
-  <textarea id="game-description" placeholder="game description" required></textarea>
-  <button type="submit">إadd game</button>
-    <div id="games-container"></div>
+  <input type="text" id="game-name" placeholder="اسم اللعبة" required />
+  <input type="text" id="game-image" placeholder="رابط الصورة" required />
+  <textarea id="game-description" placeholder="وصف اللعبة" required></textarea>
+  
+  <label for="game-type">game type:</label>
+  <select id="game-type" required>
+    <option value="classic">classic</option>
+    <option value="new">new</option>
+  </select>
+  
+  <button type="submit">add a game</button>
 </form>
     <script src+"script.js"></script>
     <div class="popup" id="popup">
