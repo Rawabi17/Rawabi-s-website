@@ -1,33 +1,4 @@
-// عناصر النافذة المنبثقة
-const popup = document.getElementById("popup");
-const popupInfo = document.getElementById("popup-info");
-const closeBtn = document.querySelector(".close");
-
-// التعامل مع النقر على الصور
-const images = document.querySelectorAll(".game-image");
-
-images.forEach(image => {
-    image.addEventListener("click", function() {
-        // الحصول على المعلومات من السمة data-info
-        const info = this.getAttribute("data-info");
-        popupInfo.textContent = info;
-        popup.style.display = "block";
-    });
-});
-
-// إغلاق النافذة المنبثقة
-closeBtn.addEventListener("click", function() {
-    popup.style.display = "none";
-});
-
-// إغلاق النافذة إذا تم النقر خارجها
-window.addEventListener("click", function(event) {
-    if (event.target === popup) {
-        popup.style.display = "none";
-    }
-});
-
-// إعدادات Firebase
+// إعداد Firebase
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -41,23 +12,52 @@ const firebaseConfig = {
 // تهيئة Firebase
 firebase.initializeApp(firebaseConfig);
 
-// التأكد من أن Firebase تم تحميله
-console.log(firebase);
+// عرض الألعاب المضافة
+const gamesContainer = document.getElementById('games-container');
 
-// محاولة الاتصال بقاعدة البيانات
-const database = firebase.database();
-database.ref('/test').set({
-  testKey: 'testValue'
-}).then(() => {
-  console.log('Data written successfully');
-}).catch((error) => {
-  console.error('Error writing data:', error);
-});
+// تحميل الألعاب من Firebase وعرضها
+function loadGames() {
+    const database = firebase.database();
+    database.ref('/games').on('value', (snapshot) => {
+        gamesContainer.innerHTML = ''; // تفريغ المحتوى الحالي
+        snapshot.forEach((childSnapshot) => {
+            const gameData = childSnapshot.val();
+            const gameId = childSnapshot.key;
+            const gameDiv = document.createElement('div');
+            gameDiv.classList.add('game');
+
+            gameDiv.innerHTML = `
+                <h3>${gameData.name}</h3>
+                <img src="${gameData.image}" alt="${gameData.name}" class="game-image" />
+                <p>${gameData.description}</p>
+                <button class="delete-btn" data-id="${gameId}">حذف اللعبة</button>
+            `;
+
+            gamesContainer.appendChild(gameDiv);
+        });
+
+        // إضافة وظيفة حذف اللعبة
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach((button) => {
+            button.addEventListener('click', function() {
+                const gameId = this.getAttribute('data-id');
+                database.ref('/games/' + gameId).remove().then(() => {
+                    console.log('Game removed successfully');
+                }).catch((error) => {
+                    console.error('Error removing game:', error);
+                });
+            });
+        });
+    });
+}
+
+// استدعاء الدالة لتحميل الألعاب عند تحميل الصفحة
+loadGames();
 
 // معالجة إرسال النموذج
 const gameForm = document.getElementById('game-form');
 gameForm.addEventListener('submit', function(event) {
-    event.preventDefault(); // منع الإرسال الافتراضي للنموذج
+    event.preventDefault();
 
     // الحصول على قيم المدخلات
     const gameName = document.getElementById('game-name').value;
@@ -66,13 +66,12 @@ gameForm.addEventListener('submit', function(event) {
 
     // إضافة اللعبة إلى Firebase
     const database = firebase.database();
-    database.ref('/games').push({ // يمكنك تغيير '/games' إلى المكان الذي تريده
+    database.ref('/games').push({
         name: gameName,
         image: gameImage,
         description: gameDescription
     }).then(() => {
         console.log('Game added successfully');
-        // يمكنك إضافة كود لتفريغ النموذج بعد الإضافة
         gameForm.reset();
     }).catch((error) => {
         console.error('Error adding game:', error);
