@@ -44,3 +44,29 @@ document.querySelectorAll('.game-image').forEach(image => {
         alert(info); // أو يمكنك عرض المعلومات في نافذة منبثقة أو تحت الصورة
     });
 });
+// إعدادات Firebase
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// تهيئة Firebase
+firebase.initializeApp(firebaseConfig);
+
+// التأكد من أن Firebase تم تحميله
+console.log(firebase);
+
+// محاولة الاتصال بقاعدة البيانات
+const database = firebase.database();
+database.ref('/test').set({
+  testKey: 'testValue'
+}).then(() => {
+  console.log('Data written successfully');
+}).catch((error) => {
+  console.error('Error writing data:', error);
+});
