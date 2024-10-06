@@ -11,8 +11,6 @@ images.forEach(image => {
         // الحصول على المعلومات من السمة data-info
         const info = this.getAttribute("data-info");
         popupInfo.textContent = info;
-
-        // عرض النافذة المنبثقة
         popup.style.display = "block";
     });
 });
@@ -29,21 +27,6 @@ window.addEventListener("click", function(event) {
     }
 });
 
-images.forEach(image => {
-    image.addEventListener("click", function() {
-        const info = this.getAttribute("data-info");
-        console.log(info); // تأكد من أن هذه السطر يظهر المعلومات الصحيحة في Console
-        popupInfo.textContent = info;
-        popup.style.display = "block";
-    });
-});
-
-document.querySelectorAll('.game-image').forEach(image => {
-    image.addEventListener('click', () => {
-        let info = image.getAttribute('data-info');
-        alert(info); // أو يمكنك عرض المعلومات في نافذة منبثقة أو تحت الصورة
-    });
-});
 // إعدادات Firebase
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
