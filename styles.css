@@ -50,16 +50,12 @@ h2 {
     border-radius: 10px;
 }
 
-#classic-games, #new-games {
-    background-color: yellow;
-}
-
 #classic-games, #new-games div {
     outline: 2px solid red;
 }
 
 #classic-games div, #new-games div {
-    border: 2px solid blue;
+    border: 2px solid beige;
 }
 
 .game-image {
