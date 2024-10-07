@@ -1,67 +1,78 @@
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "rawabisgameproject.firebaseapp.com",
-  databaseURL: "https://rawabisgameproject-default-rtdb.firebaseio.com/",
-  projectId: "rawabisgameproject",
-  storageBucket: "rawabisgameproject.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID"
-};
+document.getElementById("gameForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+    // احصل على قيمة الإدخالات
+    const gameName = document.getElementById("gameName").value;
+    const gameCategory = document.getElementById("gameCategory").value;
+    const gameDescription = document.getElementById("gameDescription").value;
 
-// Reference to the 'classic' and 'new' game sections in the database
-const classicGamesRef = database.ref('classic');
-const newGamesRef = database.ref('new');
+    // تحقق من أن جميع الحقول تم ملؤها
+    if (gameName === "" || gameCategory === "" || gameDescription === "") {
+        alert("Please fill in all fields | الرجاء ملء جميع الحقول");
+        return;
+    }
 
-// Form to add games
-const form = document.getElementById('game-form');
-form.addEventListener('submit', function (event) {
-  event.preventDefault();
+    // إضافة اللعبة إلى Firebase
+    const gameData = {
+        name: gameName,
+        category: gameCategory,
+        description: gameDescription
+    };
 
-  const gameName = document.getElementById('game-name').value;
-  const gameType = document.getElementById('game-type').value;
+    let gamesRef;
 
-  if (gameType === 'classic') {
-    classicGamesRef.push({
-      name: gameName
-    }).then(() => {
-      alert('تم إضافة اللعبة إلى قسم الألعاب الكلاسيكية بنجاح');
-    }).catch((error) => {
-      console.error('Error adding classic game:', error);
+    if (gameCategory === "classic") {
+        gamesRef = firebase.database().ref("classic");
+    } else if (gameCategory === "new") {
+        gamesRef = firebase.database().ref("new");
+    }
+
+    gamesRef.push(gameData)
+        .then(() => {
+            alert("Game added successfully! | تم إضافة اللعبة بنجاح!");
+
+            // إعادة تعيين النموذج
+            document.getElementById("gameForm").reset();
+
+            // تحديث قائمة الألعاب
+            fetchGames();
+        })
+        .catch((error) => {
+            console.error("Error adding game: ", error);
+        });
+});
+
+// عرض الألعاب
+function fetchGames() {
+    const classicGamesList = document.getElementById("classicGamesList");
+    const newGamesList = document.getElementById("newGamesList");
+
+    // تنظيف القوائم قبل التحديث
+    classicGamesList.innerHTML = "";
+    newGamesList.innerHTML = "";
+
+    // إحضار الألعاب الكلاسيكية من Firebase
+    firebase.database().ref("classic").once("value", (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const game = childSnapshot.val();
+            const gameItem = document.createElement("div");
+            gameItem.className = "game";
+            gameItem.innerHTML = <h3>${game.name}</h3><p>${game.description}</p>;
+            classicGamesList.appendChild(gameItem);
+        });
     });
-  } else if (gameType === 'new') {
-    newGamesRef.push({
-      name: gameName
-    }).then(() => {
-      alert('تم إضافة اللعبة إلى قسم الألعاب الحديثة بنجاح');
-    }).catch((error) => {
-      console.error('Error adding new game:', error);
+
+    // إحضار الألعاب الحديثة من Firebase
+    firebase.database().ref("new").once("value", (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const game = childSnapshot.val();
+            const gameItem = document.createElement("div");
+            gameItem.className = "game";
+            gameItem.innerHTML = <h3>${game.name}</h3><p>${game.description}</p>;
+            newGamesList.appendChild(gameItem);
+        });
     });
-  }
-
-  form.reset();
-});
-
-// Fetch and display the games in the 'classic' and 'new' sections
-classicGamesRef.on('child_added', function (snapshot) {
-  const game = snapshot.val();
-  displayGame(game.name, 'classic-games');
-});
-
-newGamesRef.on('child_added', function (snapshot) {
-  const game = snapshot.val();
-  displayGame(game.name, 'new-games');
-});
-
-// Function to display the games
-function displayGame(gameName, sectionId) {
-  const section = document.getElementById(sectionId);
-  const div = document.createElement('div');
-  div.textContent = gameName;
-  section.appendChild(div);
 }
+
+// استدعاء وظيفة fetchGames لعرض الألعاب عند تحميل الصفحة
+window.onload = fetchGames;
