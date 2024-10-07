@@ -51,7 +51,7 @@ h2 {
 }
 
 #classic-games, #new-games div {
-    outline: 2px solid red;
+    outline: 2px solid brown;
 }
 
 #classic-games div, #new-games div {
