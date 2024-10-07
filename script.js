@@ -43,18 +43,22 @@ function loadGames() {
     classicGamesRef.on('value', (snapshot) => {
         const games = snapshot.val();
         document.getElementById('classic-games').innerHTML = '';
-        for (let id in games) {
-            const game = games[id];
-            document.getElementById('classic-games').innerHTML += <div>${game.name}</div>;
+        if (games) {
+            for (let id in games) {
+                const game = games[id];
+                document.getElementById('classic-games').innerHTML += <div>${game.name}</div>;
+            }
         }
     });
 
     newGamesRef.on('value', (snapshot) => {
         const games = snapshot.val();
         document.getElementById('new-games').innerHTML = '';
-        for (let id in games) {
-            const game = games[id];
-            document.getElementById('new-games').innerHTML += <div>${game.name}</div>;
+        if (games) {
+            for (let id in games) {
+                const game = games[id];
+                document.getElementById('new-games').innerHTML += <div>${game.name}</div>;
+            }
         }
     });
 }
