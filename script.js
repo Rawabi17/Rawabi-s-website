@@ -1,4 +1,5 @@
 console.log("Script is loaded correctly");
+console.log("Trying to add a new game");
 
 // إعدادات Firebase
 const firebaseConfig = {
