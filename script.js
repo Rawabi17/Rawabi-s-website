@@ -3,13 +3,13 @@ console.log("Trying to add a new game");
 
 // إعدادات Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyBxDcjYmxgO-lj6zlV7WujIRLnM9JmStTQ",
-  authDomain: "rawabisgameproject.firebaseapp.com",
-  databaseURL: "https://rawabisgameproject.firebaseio.com", // ضع رابط قاعدة البيانات هنا
-  projectId: "rawabisgameproject",
-  storageBucket: "rawabisgameproject.appspot.com",
-  messagingSenderId: "133813029183",
-  appId: "1:133813029183:web:317e481a9c380fe0c4ab8a"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
 // تهيئة Firebase
@@ -46,6 +46,8 @@ document.getElementById('game-form').addEventListener('submit', function(event) 
 
 // دالة لعرض اللعبة المضافة
 function displayGame(type, name, image, description) {
+  // إضافة هذا السطر للتأكد من أن الدالة تُستدعى
+  console.log("Displaying game:", type, name, image, description); 
   const gameList = document.getElementById(type === 'classic' ? 'classic-games' : 'new-games');
   const gameItem = document.createElement('div');
   gameItem.innerHTML = `
@@ -54,3 +56,4 @@ function displayGame(type, name, image, description) {
     <p>${description}</p>
   `;
   gameList.appendChild(gameItem);
+}
