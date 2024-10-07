@@ -1,3 +1,5 @@
+console.log("Script is loaded correctly");
+
 // إعدادات Firebase
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
