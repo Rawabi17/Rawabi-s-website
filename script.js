@@ -14,6 +14,7 @@ const firebaseConfig = {
 
 // تهيئة Firebase
 firebase.initializeApp(firebaseConfig);
+console.log(firebase);
 
 // عند تقديم النموذج
 document.getElementById('game-form').addEventListener('submit', function(event) {
