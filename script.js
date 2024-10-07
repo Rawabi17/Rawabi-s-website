@@ -3,13 +3,13 @@ console.log("Trying to add a new game");
 
 // إعدادات Firebase
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY", // استبدلها بالمفتاح الصحيح
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBxDcjYmxgO-lj6zlV7WujIRLnM9JmStTQ",
+  authDomain: "rawabisgameproject.firebaseapp.com",
+  databaseURL: "https://rawabisgameproject.firebaseio.com", // ضع رابط قاعدة البيانات هنا
+  projectId: "rawabisgameproject",
+  storageBucket: "rawabisgameproject.appspot.com",
+  messagingSenderId: "133813029183",
+  appId: "1:133813029183:web:317e481a9c380fe0c4ab8a"
 };
 
 // تهيئة Firebase
@@ -20,8 +20,8 @@ document.getElementById('game-form').addEventListener('submit', function(event) 
   event.preventDefault(); // منع إعادة تحميل الصفحة
 
   const gameName = document.getElementById('game-name').value;
-  const gameImage = document.getElementById('game-image').value; // تأكد من إضافة هذا المدخل في النموذج إذا كنت تستخدمه
-  const gameDescription = document.getElementById('game-description').value; // تأكد من إضافة هذا المدخل في النموذج إذا كنت تستخدمه
+  const gameImage = document.getElementById('game-image').value;
+  const gameDescription = document.getElementById('game-description').value;
   const gameType = document.getElementById('game-type').value;
 
   // إضافة اللعبة إلى Firebase
@@ -34,7 +34,7 @@ document.getElementById('game-form').addEventListener('submit', function(event) 
     console.log('Game added successfully');
     alert('تم إضافة اللعبة بنجاح!');
 
-    // عرض اللعبة المضافة على الصفحة
+    // يمكنك هنا استدعاء دالة لعرض اللعبة المضافة على الصفحة
     displayGame(gameType, gameName, gameImage, gameDescription);
   }).catch((error) => {
     console.error('Error adding game:', error);
@@ -54,4 +54,3 @@ function displayGame(type, name, image, description) {
     <p>${description}</p>
   `;
   gameList.appendChild(gameItem);
-}
