@@ -58,6 +58,10 @@ h2 {
   outline: 2px solid red;
 }
 
+#classic-games div, #new-games div {
+  border: 2px solid blue;
+}
+
 .game-image {
     width: 100%;
     height: auto;
