@@ -35,7 +35,6 @@ h2 {
 
 .game {
     display: flex;
-    visibility: 
     align-items: center;
     justify-content: space-between;
     margin: 10px 0;
@@ -50,16 +49,17 @@ h2 {
     object-fit: cover;
     border-radius: 10px;
 }
+
 #classic-games, #new-games {
-  background-color: yellow;
+    background-color: yellow;
 }
 
 #classic-games, #new-games div {
-  outline: 2px solid red;
+    outline: 2px solid red;
 }
 
 #classic-games div, #new-games div {
-  border: 2px solid blue;
+    border: 2px solid blue;
 }
 
 .game-image {
