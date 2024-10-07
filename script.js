@@ -3,7 +3,7 @@ console.log("Trying to add a new game");
 
 // إعدادات Firebase
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "YOUR_API_KEY", // استبدلها بالمفتاح الصحيح
   authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
   databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
   projectId: "YOUR_PROJECT_ID",
@@ -14,15 +14,14 @@ const firebaseConfig = {
 
 // تهيئة Firebase
 firebase.initializeApp(firebaseConfig);
-console.log(firebase);
 
 // عند تقديم النموذج
 document.getElementById('game-form').addEventListener('submit', function(event) {
   event.preventDefault(); // منع إعادة تحميل الصفحة
 
   const gameName = document.getElementById('game-name').value;
-  const gameImage = document.getElementById('game-image').value;
-  const gameDescription = document.getElementById('game-description').value;
+  const gameImage = document.getElementById('game-image').value; // تأكد من إضافة هذا المدخل في النموذج إذا كنت تستخدمه
+  const gameDescription = document.getElementById('game-description').value; // تأكد من إضافة هذا المدخل في النموذج إذا كنت تستخدمه
   const gameType = document.getElementById('game-type').value;
 
   // إضافة اللعبة إلى Firebase
@@ -35,7 +34,7 @@ document.getElementById('game-form').addEventListener('submit', function(event) 
     console.log('Game added successfully');
     alert('تم إضافة اللعبة بنجاح!');
 
-    // يمكنك هنا استدعاء دالة لعرض اللعبة المضافة على الصفحة
+    // عرض اللعبة المضافة على الصفحة
     displayGame(gameType, gameName, gameImage, gameDescription);
   }).catch((error) => {
     console.error('Error adding game:', error);
@@ -44,18 +43,6 @@ document.getElementById('game-form').addEventListener('submit', function(event) 
   // إعادة تعيين النموذج بعد الإضافة
   this.reset();
 });
-
-// دالة لعرض اللعبة المضافة
-function displayGame(type, name, image, description) {
-  const gameList = document.getElementById(type === 'classic' ? 'classic-games' : 'new-games');
-  const gameItem = document.createElement('div');
-  gameItem.innerHTML = `
-    <h3>${name}</h3>
-    <img src="${image}" alt="${name}" />
-    <p>${description}</p>
-  `;
-  gameList.appendChild(gameItem);
-}
 
 // دالة لعرض اللعبة المضافة
 function displayGame(type, name, image, description) {
