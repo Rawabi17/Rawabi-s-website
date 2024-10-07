@@ -1,15 +1,15 @@
 console.log("Script is loaded correctly");
-console.log("Trying to add a new game");
 
-// إعدادات Firebase
+// إعدادات Firebase - مع تعديل الرابط
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBxDcjYmxgO-lj6zlV7WujIRLnM9JmStTQ",
+  authDomain: "rawabisgameproject.firebaseapp.com",
+  databaseURL: "https://rawabisgameproject-default-rtdb.firebaseio.com", // تم تحديثه بالرابط الصحيح
+  projectId: "rawabisgameproject",
+  storageBucket: "rawabisgameproject.appspot.com",
+  messagingSenderId: "133813029183",
+  appId: "1:133813029183:web:317e481a9c380fe0c4ab8a",
+  measurementId: "G-XZCDX66F15"
 };
 
 // تهيئة Firebase
@@ -20,40 +20,33 @@ document.getElementById('game-form').addEventListener('submit', function(event) 
   event.preventDefault(); // منع إعادة تحميل الصفحة
 
   const gameName = document.getElementById('game-name').value;
-  const gameImage = document.getElementById('game-image').value;
-  const gameDescription = document.getElementById('game-description').value;
   const gameType = document.getElementById('game-type').value;
 
   // إضافة اللعبة إلى Firebase
-  const newGameRef = firebase.database().ref('games/' + gameType).push(); // استخدام نوع اللعبة كجزء من المسار
+  const newGameRef = firebase.database().ref('games/' + gameType).push();
   newGameRef.set({
-    name: gameName,
-    image: gameImage,
-    description: gameDescription
+    name: gameName
   }).then(() => {
     console.log('Game added successfully');
     alert('تم إضافة اللعبة بنجاح!');
 
-    // يمكنك هنا استدعاء دالة لعرض اللعبة المضافة على الصفحة
-    displayGame(gameType, gameName, gameImage, gameDescription);
+    // هنا نقوم بعرض اللعبة على الصفحة بعد إضافتها
+    displayGame(gameType, gameName);
   }).catch((error) => {
     console.error('Error adding game:', error);
+    alert('حدث خطأ أثناء إضافة اللعبة');
   });
 
   // إعادة تعيين النموذج بعد الإضافة
   this.reset();
 });
 
-// دالة لعرض اللعبة المضافة
-function displayGame(type, name, image, description) {
-  // إضافة هذا السطر للتأكد من أن الدالة تُستدعى
-  console.log("Displaying game:", type, name, image, description); 
+// دالة لعرض اللعبة المضافة على الصفحة
+function displayGame(type, name) {
   const gameList = document.getElementById(type === 'classic' ? 'classic-games' : 'new-games');
   const gameItem = document.createElement('div');
   gameItem.innerHTML = `
     <h3>${name}</h3>
-    <img src="${image}" alt="${name}" />
-    <p>${description}</p>
   `;
   gameList.appendChild(gameItem);
 }
