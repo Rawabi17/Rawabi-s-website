@@ -13,65 +13,48 @@
     </header>
 
     <section class="game-category">
-        <h2>
-            Classic Games
-        </h2>
+        <h2>Classic Games</h2>
         <div class="game">
             <img src="images/super-mario.jpeg" alt="Super Mario" class="game-image" data-info="Super Mario: Classic platform game first released in 1985.">
-            <h3>
-                Super Mario
-            </h3>
-            <p>
-                One of the most popular Classic games in the 80's
-            </p>
+            <h3>Super Mario</h3>
+            <p>One of the most popular classic games in the 80s.</p>
             <div class="info-box"></div>
         </div>
         <div class="game">
             <img src="images/tetris.jpeg" alt="Tetris" class="game-image" data-info="Tetris: A popular puzzle game based on arranging blocks.">
-            <h3>
-                Tetris
-            </h3>
-            <p>
-                Classic block-arranging puzzle game
-            </p>
+            <h3>Tetris</h3>
+            <p>Classic block-arranging puzzle game.</p>
         </div>
     </section>
 
     <section class="game-category">
-        <h2>
-            Recent Games
-        </h2>
+        <h2>Recent Games</h2>
         <div class="game">
-            <img src="images/LOL.jpeg" alt="League Of Legends" class="game-image" data-info="League Of Legends: a popular game that is based on teams and tactics.">
-            <h3>
-                League Of Legends                
-            </h3>
-            <p>
-                A well-known video game that requires high team coordination
-            </p>
+            <img src="images/LOL.jpeg" alt="League Of Legends" class="game-image" data-info="League Of Legends: A popular game that is based on teams and tactics.">
+            <h3>League Of Legends</h3>
+            <p>A well-known video game that requires high team coordination.</p>
         </div>
         <div class="game">
-            <img src="images/stray.jpeg" alt="Stray" class="game-image" data-info="Stray: A new Adventure game that focuses on exploring the amazing city world as a Cat.">
-            <h3>
-                Stray
-            </h3>
-            <p>
-                Adventure game where you play as a Cat in a fantastic futuristic world             
-            </p>
+            <img src="images/stray.jpeg" alt="Stray" class="game-image" data-info="Stray: A new adventure game that focuses on exploring the amazing city world as a cat.">
+            <h3>Stray</h3>
+            <p>Adventure game where you play as a cat in a fantastic futuristic world.</p>
         </div>
     </section>
 
-    <form id="game-form">
-        <input type="text" id="game-name" placeholder="Game Name" required />
+    <section>
+        <h2>Add a New Game</h2>
+        <form id="game-form">
+            <input type="text" id="game-name" placeholder="Game Name" required />
 
-        <label for="game-type">Game Type:</label>
-        <select id="game-type" required>
-            <option value="classic">Classic</option>
-            <option value="new">recent</option>
-        </select>
-        
-        <button type="submit">Add a Game</button>
-    </form>
+            <label for="game-category">Game Type:</label>
+            <select id="game-category" required>
+                <option value="classic">Classic</option>
+                <option value="new">Recent</option>
+            </select>
+            
+            <button type="submit">Add a Game</button>
+        </form>
+    </section>
 
     <div id="classic-games"></div>
     <div id="new-games"></div>
@@ -82,9 +65,6 @@
             <p id="popup-info">Here the information of the game that was clicked is displayed.</p>
         </div>
     </div>
-
-    <br>
-    <br>
 
     <footer>
         <p>All rights reserved to Rawabi Alshalahi 2024 ©️</p>
