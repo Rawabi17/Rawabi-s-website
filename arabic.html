@@ -9,7 +9,7 @@
 <body>
     <header>
         <h1>أنواع الألعاب</h1>
-        <a href="english.html">English Version</a>
+        <a href="english.html">نسخة باللغة الإنجليزية</a>
     </header>
 
     <section class="game-category">
@@ -41,17 +41,20 @@
         </div>
     </section>
 
-    <form id="game-form">
-        <input type="text" id="game-name" placeholder="اسم اللعبة" required />
-        
-        <label for="game-type">نوع اللعبة:</label>
-        <select id="game-type" required>
-            <option value="classic">كلاسيكية</option>
-            <option value="new">حديثة</option>
-        </select>
-        
-        <button type="submit">إضافة لعبة</button>
-    </form>
+    <section>
+        <h2>إضافة لعبة جديدة</h2>
+        <form id="game-form">
+            <input type="text" id="game-name" placeholder="اسم اللعبة" required />
+            
+            <label for="game-type">نوع اللعبة:</label>
+            <select id="game-category" required>
+                <option value="Classic">كلاسيكية</option>
+                <option value="New">حديثة</option>
+            </select>
+            
+            <button type="submit">إضافة لعبة</button>
+        </form>
+    </section>
 
     <div id="classic-games"></div>
     <div id="new-games"></div>
@@ -63,10 +66,8 @@
         </div>
     </div>
     
-    <br>
-    <br>
     <footer>
-        <p>©️ 2024 جميع الحقوق محفوظة لروابي الشلاحي </p>
+        <p>©️ 2024 جميع الحقوق محفوظة لروابي الشلاحي</p>
     </footer>
 
     <script src="script.js"></script>
