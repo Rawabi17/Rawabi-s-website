@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Games Website | موقع الألعاب الخاص بي</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Firebase App (the core Firebase SDK) -->
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
 </head>
 <body>
     <header>
@@ -44,24 +41,28 @@
     </section>
 
     <footer>
-        <p>All rights reserved to Rawabi Alshalahil © 2024</p>
+        <p>All rights reserved to Rawabi Alshalahil ©️ 2024</p>
     </footer>
 
-    <script>
+    <script type="module">
+        // استيراد Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
         // إعدادات Firebase
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
+            apiKey: "AIzaSyD1e6qM3BLgfoWZ3XAbgUJClAhI3x6kQ8U",
+            authDomain: "rawabisgameproject.firebaseapp.com",
             databaseURL: "https://rawabisgameproject-default-rtdb.firebaseio.com/",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            projectId: "rawabisgameproject",
+            storageBucket: "rawabisgameproject.appspot.com",
+            messagingSenderId: "163940048735",
+            appId: "1:163940048735:web:465bcb58b233eeafddc01d"
         };
 
         // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
         // التعامل مع إضافة الألعاب
         document.getElementById('game-form').addEventListener('submit', function (event) {
@@ -78,8 +79,8 @@
             };
 
             // إضافة البيانات إلى قاعدة البيانات
-            const newGameRef = database.ref(gameCategory).push();
-            newGameRef.set(gameData)
+            const newGameRef = ref(database, gameCategory).push();
+            set(newGameRef, gameData)
                 .then(() => {
                     console.log('Game added successfully');
                     document.getElementById('game-form').reset();
@@ -91,7 +92,7 @@
 
         // جلب الألعاب من قاعدة البيانات
         function fetchGames() {
-            database.ref('Classic').on('value', (snapshot) => {
+            onValue(ref(database, 'Classic'), (snapshot) => {
                 const classicGamesList = document.getElementById('classic-games-list');
                 classicGamesList.innerHTML = '';
                 snapshot.forEach((childSnapshot) => {
@@ -102,7 +103,7 @@
                 });
             });
 
-            database.ref('New').on('value', (snapshot) => {
+            onValue(ref(database, 'New'), (snapshot) => {
                 const newGamesList = document.getElementById('new-games-list');
                 newGamesList.innerHTML = '';
                 snapshot.forEach((childSnapshot) => {
