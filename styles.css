@@ -48,6 +48,11 @@ h2 {
     height: 100px;
     object-fit: cover;
     border-radius: 10px;
+    transition: transform 0.3s; /* تأثير التحول */
+}
+
+.game img:hover {
+    transform: scale(1.1); /* تكبير الصورة عند التمرير عليها */
 }
 
 #classic-games, #new-games div {
@@ -71,9 +76,14 @@ h2 {
     cursor: pointer;
 }
 
+.delete-btn:hover {
+    background-color: darkred; /* لون الزر عند تمرير الماوس */
+}
+
 .game h3 {
     flex-grow: 1;
     margin-left: 20px;
+    font-size: 1.5rem; /* حجم أكبر ليكون أكثر وضوحًا */
 }
 
 .game p {
