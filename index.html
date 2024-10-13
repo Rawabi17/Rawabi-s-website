@@ -30,6 +30,9 @@
             <label for="game-description">Description | وصف اللعبة:</label>
             <textarea id="game-description" required></textarea>
 
+            <label for="game-image">Upload Game Image | رفع صورة اللعبة:</label>
+            <input type="file" id="game-image">
+
             <button type="submit">Add Game | إضافة لعبة</button>
         </form>
     </section>
@@ -51,17 +54,17 @@
     <script type="module">
         // استيراد Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue, push } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
         // إعدادات Firebase
         const firebaseConfig = {
-            apiKey: "AIzaSyD1e6qM3BLgfoWZ3XAbgUJClAhI3x6kQ8U",
-            authDomain: "rawabisgameproject.firebaseapp.com",
-            databaseURL: "https://rawabisgameproject-default-rtdb.firebaseio.com/",
-            projectId: "rawabisgameproject",
-            storageBucket: "rawabisgameproject.appspot.com",
-            messagingSenderId: "163940048735",
-            appId: "1:163940048735:web:465bcb58b233eeafddc01d"
+            apiKey: "API_KEY",
+            authDomain: "PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://PROJECT_ID.firebaseio.com",
+            projectId: "PROJECT_ID",
+            storageBucket: "PROJECT_ID.appspot.com",
+            messagingSenderId: "SENDER_ID",
+            appId: "APP_ID"
         };
 
         // Initialize Firebase
@@ -75,15 +78,17 @@
             const gameName = document.getElementById('game-name').value;
             const gameCategory = document.getElementById('game-category').value;
             const gameDescription = document.getElementById('game-description').value;
+            const gameImage = document.getElementById('game-image').files[0] ? URL.createObjectURL(document.getElementById('game-image').files[0]) : 'images/default-image.png';
 
             const gameData = {
                 name: gameName,
                 category: gameCategory,
                 description: gameDescription,
+                image: gameImage // إضافة الحقل الخاص بالصورة
             };
 
             // إضافة البيانات إلى قاعدة البيانات
-            const newGameRef = ref(database, gameCategory).push();
+            const newGameRef = push(ref(database, gameCategory));
             set(newGameRef, gameData)
                 .then(() => {
                     console.log('Game added successfully');
@@ -102,7 +107,7 @@
                 snapshot.forEach((childSnapshot) => {
                     const game = childSnapshot.val();
                     const gameElement = document.createElement('div');
-                    gameElement.innerHTML = <h3>${game.name}</h3><p>${game.description}</p>;
+                    gameElement.innerHTML = <img src="${game.image}" alt="${game.name}"><h3>${game.name}</h3><p>${game.description}</p>;
                     classicGamesList.appendChild(gameElement);
                 });
             });
@@ -113,7 +118,7 @@
                 snapshot.forEach((childSnapshot) => {
                     const game = childSnapshot.val();
                     const gameElement = document.createElement('div');
-                    gameElement.innerHTML = <h3>${game.name}</h3><p>${game.description}</p>;
+                    gameElement.innerHTML = <img src="${game.image}" alt="${game.name}"><h3>${game.name}</h3><p>${game.description}</p>;
                     newGamesList.appendChild(gameElement);
                 });
             });
