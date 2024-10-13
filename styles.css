@@ -15,7 +15,7 @@ header {
 
 h1 {
     margin: 0;
-    font-size: 2rem; /* تقليل حجم الخط */
+    font-size: 2.5rem;
 }
 
 section.game-category {
@@ -31,7 +31,6 @@ section.game-category {
 h2 {
     color: #ffff;
     text-align: center;
-    font-size: 1.5rem; /* تقليل حجم الخط */
 }
 
 .game {
@@ -52,6 +51,10 @@ h2 {
     transition: transform 0.3s; /* تأثير التحول */
 }
 
+.game img:hover {
+    transform: scale(1.1); /* تكبير الصورة عند التمرير عليها */
+}
+
 #classic-games, #new-games div {
     outline: 2px solid brown;
 }
@@ -60,10 +63,9 @@ h2 {
     border: 2px solid beige;
 }
 
-.game h3 {
-    flex-grow: 1;
-    margin-left: 20px;
-    font-size: 1.2rem; /* حجم مناسب لعنوان اللعبة */
+.game-image {
+    width: 100%;
+    height: auto;
 }
 
 .delete-btn {
@@ -78,13 +80,22 @@ h2 {
     background-color: darkred; /* لون الزر عند تمرير الماوس */
 }
 
+.game h3 {
+    flex-grow: 1;
+    margin-left: 20px;
+    font-size: 1.5rem; /* حجم أكبر ليكون أكثر وضوحًا */
+}
+
+.game p {
+    max-width: 400px;
+}
+
 footer {
     background-color: #430808;
-    color: white; /* تغيير لون النص إلى الأبيض */
+    color: white;
     text-align: center;
     padding: 10px;
     position: fixed;
     bottom: 0;
     width: 100%;
-    font-size: 1rem; /* حجم نص مناسب */
 }
