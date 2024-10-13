@@ -9,7 +9,7 @@ gameForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
     const gameName = document.getElementById('game-name').value;
-    const gameType = document.getElementById('game-type').value;
+    const gameType = document.getElementById('game-category').value; // تم التعديل هنا
 
     addGame(gameName, gameType);
     gameForm.reset();
@@ -23,12 +23,13 @@ function addGame(name, type) {
     gameImage.src = 'images/default-image.png'; // استخدم صورة افتراضية
     gameImage.alt = name;
     gameImage.className = 'game-image';
+    gameImage.dataset.info = 'وصف اللعبة'; // يمكنك تعديل الوصف حسب الحاجة
 
     const gameTitle = document.createElement('h3');
     gameTitle.textContent = name;
 
     const gameDescription = document.createElement('p');
-    gameDescription.textContent = 'وصف اللعبة'; // قم بتعديل الوصف حسب الحاجة
+    gameDescription.textContent = 'وصف اللعبة'; // يمكنك تعديل الوصف حسب الحاجة
 
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'حذف';
@@ -42,7 +43,7 @@ function addGame(name, type) {
     gameDiv.appendChild(gameDescription);
     gameDiv.appendChild(deleteButton);
 
-    if (type === 'classic') {
+    if (type === 'Classic') {
         classicGamesContainer.appendChild(gameDiv);
     } else {
         newGamesContainer.appendChild(gameDiv);
