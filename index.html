@@ -21,11 +21,8 @@
             <label for="game-name">Game Name | اسم اللعبة:</label>
             <input type="text" id="game-name" required>
 
-            <label for="game-type">Game Category | فئة اللعبة:</label>
-            <select id="game-type">
-                <option value="classic">Classic | كلاسيكية</option>
-                <option value="new">New | حديثة</option>
-            </select>
+            <label for="game-description">Game Description | وصف اللعبة:</label>
+            <textarea id="game-description" required></textarea>
 
             <button type="submit">Add Game | إضافة لعبة</button>
         </form>
@@ -37,7 +34,7 @@
     </section>
 
     <section class="game-category" id="new-games">
-        <h2>New Games | الألعاب الحديثة</h2>
+        <h2>Recent Games | الألعاب الحديثة</h2>
         <div id="new-games-list"></div>
     </section>
 
@@ -45,6 +42,76 @@
         <p>All rights reserved to Rawabi Alshalahil ©️ 2024</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module">
+        // استيراد Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+        // إعدادات Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyD1e6qM3BLgfoWZ3XAbgUJClAhI3x6kQ8U",
+            authDomain: "rawabisgameproject.firebaseapp.com",
+            databaseURL: "https://rawabisgameproject-default-rtdb.firebaseio.com/",
+            projectId: "rawabisgameproject",
+            storageBucket: "rawabisgameproject.appspot.com",
+            messagingSenderId: "163940048735",
+            appId: "1:163940048735:web:465bcb58b233eeafddc01d"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // التعامل مع إضافة الألعاب
+        document.getElementById('game-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const gameName = document.getElementById('game-name').value;
+            const gameDescription = document.getElementById('game-description').value;
+
+            const gameData = {
+                name: gameName,
+                description: gameDescription,
+            };
+
+            // إضافة البيانات إلى قاعدة البيانات
+            const newGameRef = ref(database, 'games').push();
+            set(newGameRef, gameData)
+                .then(() => {
+                    console.log('Game added successfully');
+                    document.getElementById('game-form').reset();
+                })
+                .catch((error) => {
+                    console.error('Error adding game:', error);
+                });
+        });
+
+        // جلب الألعاب من قاعدة البيانات
+        function fetchGames() {
+            onValue(ref(database, 'Classic'), (snapshot) => {
+                const classicGamesList = document.getElementById('classic-games-list');
+                classicGamesList.innerHTML = '';
+                snapshot.forEach((childSnapshot) => {
+                    const game = childSnapshot.val();
+                    const gameElement = document.createElement('div');
+                    gameElement.innerHTML = <h3>${game.name}</h3><p>${game.description}</p>;
+                    classicGamesList.appendChild(gameElement);
+                });
+            });
+
+            onValue(ref(database, 'New'), (snapshot) => {
+                const newGamesList = document.getElementById('new-games-list');
+                newGamesList.innerHTML = '';
+                snapshot.forEach((childSnapshot) => {
+                    const game = childSnapshot.val();
+                    const gameElement = document.createElement('div');
+                    gameElement.innerHTML = <h3>${game.name}</h3><p>${game.description}</p>;
+                    newGamesList.appendChild(gameElement);
+                });
+            });
+        }
+
+        fetchGames();
+    </script>
 </body>
 </html>
