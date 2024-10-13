@@ -9,7 +9,7 @@ gameForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
     const gameName = document.getElementById('game-name').value;
-    const gameType = document.getElementById('game-category').value; // تم التعديل هنا
+    const gameType = document.getElementById('game-category').value;
 
     addGame(gameName, gameType);
     gameForm.reset();
@@ -27,6 +27,10 @@ function addGame(name, type) {
 
     const gameTitle = document.createElement('h3');
     gameTitle.textContent = name;
+
+    const gameTypeElement = document.createElement('p');
+    gameTypeElement.textContent = نوع اللعبة: ${type}; // إضافة نوع اللعبة
+    gameDiv.appendChild(gameTypeElement); // إضافة نوع اللعبة إلى div اللعبة
 
     const gameDescription = document.createElement('p');
     gameDescription.textContent = 'وصف اللعبة'; // يمكنك تعديل الوصف حسب الحاجة
