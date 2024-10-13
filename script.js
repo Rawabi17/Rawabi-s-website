@@ -9,27 +9,28 @@ gameForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
     const gameName = document.getElementById('game-name').value;
-    const gameType = document.getElementById('game-category').value; // تم التعديل هنا
+    const gameType = document.getElementById('game-category').value;
+    const gameImage = document.getElementById('game-image').value; // إضافة رابط الصورة
+    const gameDescription = document.getElementById('game-description').value; // إضافة الوصف
 
-    addGame(gameName, gameType);
+    addGame(gameName, gameType, gameImage, gameDescription);
     gameForm.reset();
 });
 
-function addGame(name, type) {
+function addGame(name, type, image, description) {
     const gameDiv = document.createElement('div');
     gameDiv.className = 'game';
 
     const gameImage = document.createElement('img');
-    gameImage.src = 'images/default-image.png'; // استخدم صورة افتراضية
+    gameImage.src = image; // استخدام رابط الصورة المدخل
     gameImage.alt = name;
     gameImage.className = 'game-image';
-    gameImage.dataset.info = 'وصف اللعبة'; // يمكنك تعديل الوصف حسب الحاجة
 
     const gameTitle = document.createElement('h3');
     gameTitle.textContent = name;
 
     const gameDescription = document.createElement('p');
-    gameDescription.textContent = 'وصف اللعبة'; // يمكنك تعديل الوصف حسب الحاجة
+    gameDescription.textContent = description; // استخدام الوصف المدخل
 
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'حذف';
@@ -38,19 +39,22 @@ function addGame(name, type) {
         gameDiv.remove();
     };
 
+    gameDiv.append### 3. *script.js* (continued)
+
+```javascript
     gameDiv.appendChild(gameImage);
     gameDiv.appendChild(gameTitle);
     gameDiv.appendChild(gameDescription);
     gameDiv.appendChild(deleteButton);
 
-    if (type === 'Classic') {
+    if (type === 'classic') {
         classicGamesContainer.appendChild(gameDiv);
     } else {
         newGamesContainer.appendChild(gameDiv);
     }
 }
 
-// إظهار معلومات اللعبة عند النقر على الصورة
+// Show game info when clicking on the image
 document.querySelectorAll('.game-image').forEach(image => {
     image.addEventListener('click', function () {
         popupInfo.textContent = image.dataset.info;
@@ -58,7 +62,7 @@ document.querySelectorAll('.game-image').forEach(image => {
     });
 });
 
-// إغلاق النافذة المنبثقة
+// Close the popup
 closePopup.addEventListener('click', function () {
     popup.style.display = 'none';
 });
