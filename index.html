@@ -9,10 +9,6 @@
 <body>
     <header>
         <h1>Welcome to My Games Website | مرحبًا بكم في موقع الألعاب الخاص بي</h1>
-        <nav>
-            <a href="arabic.html">النسخة العربية</a> |
-            <a href="english.html">English Version</a>
-        </nav>
     </header>
 
     <section>
@@ -26,6 +22,9 @@
                 <option value="Classic">Classic | كلاسيكية</option>
                 <option value="New">recent | حديثة</option>
             </select>
+
+            <label for="game-description">Description | وصف اللعبة:</label>
+            <textarea id="game-description" required></textarea>
 
             <button type="submit">Add Game | إضافة لعبة</button>
         </form>
@@ -71,10 +70,12 @@
 
             const gameName = document.getElementById('game-name').value;
             const gameCategory = document.getElementById('game-category').value;
+            const gameDescription = document.getElementById('game-description').value;
 
             const gameData = {
                 name: gameName,
                 category: gameCategory,
+                description: gameDescription,
             };
 
             // إضافة البيانات إلى قاعدة البيانات
@@ -97,7 +98,7 @@
                 snapshot.forEach((childSnapshot) => {
                     const game = childSnapshot.val();
                     const gameElement = document.createElement('div');
-                    gameElement.innerHTML = <h3>${game.name}</h3>;
+                    gameElement.innerHTML = <h3>${game.name}</h3><p>${game.description}</p>;
                     classicGamesList.appendChild(gameElement);
                 });
             });
@@ -108,7 +109,7 @@
                 snapshot.forEach((childSnapshot) => {
                     const game = childSnapshot.val();
                     const gameElement = document.createElement('div');
-                    gameElement.innerHTML = <h3>${game.name}</h3>;
+                    gameElement.innerHTML = <h3>${game.name}</h3><p>${game.description}</p>;
                     newGamesList.appendChild(gameElement);
                 });
             });
