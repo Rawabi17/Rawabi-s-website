@@ -1,36 +1,37 @@
+// الحصول على العناصر من الصفحة
 const gameForm = document.getElementById('game-form');
-const classicGamesContainer = document.getElementById('classic-games');
-const newGamesContainer = document.getElementById('new-games');
-const popup = document.getElementById('popup');
-const popupInfo = document.getElementById('popup-info');
-const closePopup = document.querySelector('.close');
+const classicGamesContainer = document.getElementById('classic-games-list');
+const newGamesContainer = document.getElementById('new-games-list');
 
+// التعامل مع إضافة الألعاب عند تقديم النموذج
 gameForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
     const gameName = document.getElementById('game-name').value;
-    const gameType = document.getElementById('game-category').value;
-    const gameImage = document.getElementById('game-image').value; // إضافة رابط الصورة
-    const gameDescription = document.getElementById('game-description').value; // إضافة الوصف
+    const gameCategory = document.getElementById('game-category').value;
+    const gameDescription = document.getElementById('game-description').value;
 
-    addGame(gameName, gameType, gameImage, gameDescription);
-    gameForm.reset();
+    addGame(gameName, gameCategory, gameDescription);
+    gameForm.reset(); // إعادة تعيين النموذج بعد الإضافة
 });
 
-function addGame(name, type, image, description) {
+// وظيفة لإضافة لعبة
+function addGame(name, category, description) {
     const gameDiv = document.createElement('div');
     gameDiv.className = 'game';
 
     const gameImage = document.createElement('img');
-    gameImage.src = image; // استخدام رابط الصورة المدخل
+    gameImage.src = 'images/default-image.png'; // استخدم صورة افتراضية
     gameImage.alt = name;
     gameImage.className = 'game-image';
+    gameImage.dataset.name = name;
+    gameImage.dataset.description = description;
 
     const gameTitle = document.createElement('h3');
     gameTitle.textContent = name;
 
-    const gameDescription = document.createElement('p');
-    gameDescription.textContent = description; // استخدام الوصف المدخل
+    const gameDescriptionElement = document.createElement('p');
+    gameDescriptionElement.textContent = description;
 
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'حذف';
@@ -39,30 +40,52 @@ function addGame(name, type, image, description) {
         gameDiv.remove();
     };
 
-    gameDiv.append### 3. *script.js* (continued)
-
-```javascript
     gameDiv.appendChild(gameImage);
     gameDiv.appendChild(gameTitle);
-    gameDiv.appendChild(gameDescription);
+    gameDiv.appendChild(gameDescriptionElement);
     gameDiv.appendChild(deleteButton);
 
-    if (type === 'classic') {
+    if (category === 'Classic') {
         classicGamesContainer.appendChild(gameDiv);
     } else {
         newGamesContainer.appendChild(gameDiv);
     }
-}
 
-// Show game info when clicking on the image
-document.querySelectorAll('.game-image').forEach(image => {
-    image.addEventListener('click', function () {
-        popupInfo.textContent = image.dataset.info;
+    // إظهار معلومات اللعبة عند النقر على الصورة
+    gameImage.addEventListener('click', function () {
+        popupInfo.textContent = Name: ${name}, Description: ${description};
         popup.style.display = 'block';
     });
-});
+}
 
-// Close the popup
+// نافذة منبثقة لعرض تفاصيل اللعبة
+const popup = document.createElement('div');
+popup.classList.add('popup');
+document.body.appendChild(popup);
+
+const closePopup = document.createElement('span');
+closePopup.textContent = 'X';
+closePopup.classList.add('close-popup');
+popup.appendChild(closePopup);
+
+const popupInfo = document.createElement('p');
+popup.appendChild(popupInfo);
+
 closePopup.addEventListener('click', function () {
     popup.style.display = 'none';
 });
+
+// تنسيق النافذة المنبثقة
+popup.style.display = 'none';
+popup.style.position = 'fixed';
+popup.style.top = '50%';
+popup.style.left = '50%';
+popup.style.transform = 'translate(-50%, -50%)';
+popup.style.backgroundColor = 'white';
+popup.style.padding = '20px';
+popup.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+
+closePopup.style.cursor = 'pointer';
+closePopup.style.position = 'absolute';
+closePopup.style.top = '10px';
+closePopup.style.right = '10px';
