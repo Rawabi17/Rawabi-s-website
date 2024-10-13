@@ -12,12 +12,7 @@
         <a href="arabic.html">النسخة العربية</a>
     </header>
 
-    <nav>
-        <a href="#classic-games">Classic Games</a>
-        <a href="#new-games">Recent Games</a>
-    </nav>
-
-    <section class="game-category" id="classic-games">
+    <section class="game-category">
         <h2>Classic Games</h2>
         <div class="game">
             <img src="images/super-mario.jpeg" alt="Super Mario" class="game-image" data-info="Super Mario: Classic platform game first released in 1985.">
@@ -32,7 +27,7 @@
         </div>
     </section>
 
-    <section class="game-category" id="new-games">
+    <section class="game-category">
         <h2>Recent Games</h2>
         <div class="game">
             <img src="images/LOL.jpeg" alt="League Of Legends" class="game-image" data-info="League Of Legends: A popular game that is based on teams and tactics.">
@@ -50,12 +45,12 @@
         <h2>Add a New Game</h2>
         <form id="game-form">
             <input type="text" id="game-name" placeholder="Game Name" required />
-            <textarea id="game-description" placeholder="Game Description" required></textarea>
             <label for="game-category">Game Type:</label>
             <select id="game-category" required>
                 <option value="classic">Classic</option>
                 <option value="new">Recent</option>
             </select>
+            
             <button type="submit">Add a Game</button>
         </form>
     </section>
