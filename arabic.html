@@ -9,15 +9,11 @@
 <body>
     <header>
         <h1>أنواع الألعاب</h1>
+        <a href="arabic.html">العربية</a>
         <a href="english.html">English</a>
     </header>
 
-    <nav>
-        <a href="#classic-games">الألعاب الكلاسيكية</a>
-        <a href="#new-games">الألعاب الحديثة</a>
-    </nav>
-
-    <section class="game-category" id="classic-games">
+    <section class="game-category">
         <h2>الألعاب الكلاسيكية</h2>
         <div class="game">
             <img src="images/super-mario.jpeg" alt="سوبر ماريو" class="game-image" data-info="سوبر ماريو: لعبة منصات كلاسيكية صدرت لأول مرة في 1985">
@@ -32,7 +28,7 @@
         </div>
     </section>
 
-    <section class="game-category" id="new-games">
+    <section class="game-category">
         <h2>الألعاب الحديثة</h2>
         <div class="game">
             <img src="images/LOL.jpeg" alt="ليج اوف ليجندز" class="game-image" data-info="ليج اوف ليجندز: لعبة فيديو مشهورة تعتمد على الفرق والتكتيك">
@@ -50,12 +46,12 @@
         <h2>إضافة لعبة جديدة</h2>
         <form id="game-form">
             <input type="text" id="game-name" placeholder="اسم اللعبة" required />
-            <textarea id="game-description" placeholder="وصف اللعبة" required></textarea>
-            <label for="game-category">نوع اللعبة:</label>
+            <label for="game-type">نوع اللعبة:</label>
             <select id="game-category" required>
-                <option value="classic">كلاسيكية</option>
-                <option value="new">حديثة</option>
+                <option value="Classic">كلاسيكية</option>
+                <option value="New">حديثة</option>
             </select>
+            
             <button type="submit">إضافة لعبة</button>
         </form>
     </section>
