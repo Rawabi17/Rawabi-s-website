@@ -21,17 +21,11 @@
             <label for="game-name">Game Name | اسم اللعبة:</label>
             <input type="text" id="game-name" required>
 
-            <label for="game-category">Game Category | فئة اللعبة:</label>
-            <select id="game-category">
-                <option value="Classic">Classic | كلاسيكية</option>
-                <option value="New">recent | حديثة</option>
+            <label for="game-type">Game Category | فئة اللعبة:</label>
+            <select id="game-type">
+                <option value="classic">Classic | كلاسيكية</option>
+                <option value="new">New | حديثة</option>
             </select>
-
-            <label for="game-description">Description | وصف اللعبة:</label>
-            <textarea id="game-description" required></textarea>
-
-            <label for="game-image">Upload Game Image | رفع صورة اللعبة:</label>
-            <input type="file" id="game-image">
 
             <button type="submit">Add Game | إضافة لعبة</button>
         </form>
@@ -43,7 +37,7 @@
     </section>
 
     <section class="game-category" id="new-games">
-        <h2>Recent Games | الألعاب الحديثة</h2>
+        <h2>New Games | الألعاب الحديثة</h2>
         <div id="new-games-list"></div>
     </section>
 
@@ -51,80 +45,6 @@
         <p>All rights reserved to Rawabi Alshalahil ©️ 2024</p>
     </footer>
 
-    <script type="module">
-        // استيراد Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, push } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
-
-        // إعدادات Firebase
-        const firebaseConfig = {
-            apiKey: "API_KEY",
-            authDomain: "PROJECT_ID.firebaseapp.com",
-            databaseURL: "https://PROJECT_ID.firebaseio.com",
-            projectId: "PROJECT_ID",
-            storageBucket: "PROJECT_ID.appspot.com",
-            messagingSenderId: "SENDER_ID",
-            appId: "APP_ID"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        // التعامل مع إضافة الألعاب
-        document.getElementById('game-form').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const gameName = document.getElementById('game-name').value;
-            const gameCategory = document.getElementById('game-category').value;
-            const gameDescription = document.getElementById('game-description').value;
-            const gameImage = document.getElementById('game-image').files[0] ? URL.createObjectURL(document.getElementById('game-image').files[0]) : 'images/default-image.png';
-
-            const gameData = {
-                name: gameName,
-                category: gameCategory,
-                description: gameDescription,
-                image: gameImage // إضافة الحقل الخاص بالصورة
-            };
-
-            // إضافة البيانات إلى قاعدة البيانات
-            const newGameRef = push(ref(database, gameCategory));
-            set(newGameRef, gameData)
-                .then(() => {
-                    console.log('Game added successfully');
-                    document.getElementById('game-form').reset();
-                })
-                .catch((error) => {
-                    console.error('Error adding game:', error);
-                });
-        });
-
-        // جلب الألعاب من قاعدة البيانات
-        function fetchGames() {
-            onValue(ref(database, 'Classic'), (snapshot) => {
-                const classicGamesList = document.getElementById('classic-games-list');
-                classicGamesList.innerHTML = '';
-                snapshot.forEach((childSnapshot) => {
-                    const game = childSnapshot.val();
-                    const gameElement = document.createElement('div');
-                    gameElement.innerHTML = <img src="${game.image}" alt="${game.name}"><h3>${game.name}</h3><p>${game.description}</p>;
-                    classicGamesList.appendChild(gameElement);
-                });
-            });
-
-            onValue(ref(database, 'New'), (snapshot) => {
-                const newGamesList = document.getElementById('new-games-list');
-                newGamesList.innerHTML = '';
-                snapshot.forEach((childSnapshot) => {
-                    const game = childSnapshot.val();
-                    const gameElement = document.createElement('div');
-                    gameElement.innerHTML = <img src="${game.image}" alt="${game.name}"><h3>${game.name}</h3><p>${game.description}</p>;
-                    newGamesList.appendChild(gameElement);
-                });
-            });
-        }
-
-        fetchGames();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
