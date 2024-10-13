@@ -43,29 +43,12 @@ h2 {
     border-radius: 5px;
 }
 
-.game img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.3s; /* تأثير التحول */
-}
-
-.game img:hover {
-    transform: scale(1.1); /* تكبير الصورة عند التمرير عليها */
-}
-
 #classic-games, #new-games div {
     outline: 2px solid brown;
 }
 
 #classic-games div, #new-games div {
     border: 2px solid beige;
-}
-
-.game-image {
-    width: 100%;
-    height: auto;
 }
 
 .delete-btn {
@@ -86,13 +69,9 @@ h2 {
     font-size: 1.5rem; /* حجم أكبر ليكون أكثر وضوحًا */
 }
 
-.game p {
-    max-width: 400px;
-}
-
 footer {
     background-color: #430808;
-    color: dark red;
+    color: white;
     text-align: center;
     padding: 10px;
     position: fixed;
